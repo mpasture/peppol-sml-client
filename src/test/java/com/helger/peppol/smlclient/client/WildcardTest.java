@@ -43,13 +43,13 @@ package com.helger.peppol.smlclient.client;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;

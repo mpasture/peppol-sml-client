@@ -48,7 +48,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.xml.ws.BindingProvider;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +55,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
 import com.helger.peppol.smlclient.participant.InternalErrorFault;

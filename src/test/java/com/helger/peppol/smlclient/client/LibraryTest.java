@@ -55,12 +55,12 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;

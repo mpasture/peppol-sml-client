@@ -48,7 +48,6 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -64,6 +63,7 @@ import org.xbill.DNS.Type;
 
 import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.lang.CGStringHelper;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;

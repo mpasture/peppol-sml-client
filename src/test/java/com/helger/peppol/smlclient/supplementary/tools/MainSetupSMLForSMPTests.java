@@ -40,8 +40,7 @@
  */
 package com.helger.peppol.smlclient.supplementary.tools;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
-
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
