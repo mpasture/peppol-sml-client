@@ -43,11 +43,6 @@ package com.helger.peppol.smlclient.client;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.busdox.servicemetadata.locator._1.PublisherEndpointType;
-import org.busdox.servicemetadata.locator._1.ServiceMetadataPublisherServiceType;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.BadRequestFault;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.UnauthorizedFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
 import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.After;
 import org.junit.Before;
@@ -59,10 +54,15 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.smlclient.participant.BadRequestFault;
+import com.helger.peppol.smlclient.participant.UnauthorizedFault;
+import com.helger.peppol.smlclient.smp.NotFoundFault;
+import com.helger.peppol.smlclient.smp.PublisherEndpointType;
+import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 
 /**
  * This class is used for generating test data.
- * 
+ *
  * @author Ravnholt<br>
  *         PEPPOL.AT, BRZ, Philip Helger
  */

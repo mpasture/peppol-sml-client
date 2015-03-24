@@ -55,11 +55,6 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import org.busdox.servicemetadata.locator._1.ParticipantIdentifierPageType;
-import org.busdox.servicemetadata.locator._1.PublisherEndpointType;
-import org.busdox.servicemetadata.locator._1.ServiceMetadataPublisherServiceForParticipantType;
-import org.busdox.servicemetadata.locator._1.ServiceMetadataPublisherServiceType;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
 import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -70,6 +65,13 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.smlclient.participant.BadRequestFault;
+import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
+import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceForParticipantType;
+import com.helger.peppol.smlclient.participant.UnauthorizedFault;
+import com.helger.peppol.smlclient.smp.NotFoundFault;
+import com.helger.peppol.smlclient.smp.PublisherEndpointType;
+import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 
 /**
  * @author Ravnholt<br>
@@ -131,7 +133,7 @@ public final class LibraryTest extends AbstractSMLClientTest
     {
       biClient.delete (aPI);
     }
-    catch (final org.busdox.servicemetadata.managebusinessidentifierservice._1.NotFoundFault e)
+    catch (final com.helger.peppol.smlclient.participant.NotFoundFault e)
     {
       // Do nothing since we just want to make sure it doesn't exists.
     }
@@ -247,7 +249,7 @@ public final class LibraryTest extends AbstractSMLClientTest
     m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
   }
 
-  @Test (expected = org.busdox.servicemetadata.managebusinessidentifierservice._1.NotFoundFault.class)
+  @Test (expected = NotFoundFault.class)
   public void testManageBusinessIdentifierDoubleDelete () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
@@ -396,7 +398,7 @@ public final class LibraryTest extends AbstractSMLClientTest
       aPIClientOld.delete (aPI);
       fail ();
     }
-    catch (final org.busdox.servicemetadata.managebusinessidentifierservice._1.UnauthorizedFault e)
+    catch (final UnauthorizedFault e)
     {
       // This must happen.
     }
@@ -405,7 +407,7 @@ public final class LibraryTest extends AbstractSMLClientTest
     aPIClientNew.delete (aPI);
   }
 
-  @Test (expected = org.busdox.servicemetadata.managebusinessidentifierservice._1.BadRequestFault.class)
+  @Test (expected = BadRequestFault.class)
   public void createExistingBusinessIdentifierUnauthorized () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);

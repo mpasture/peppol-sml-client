@@ -48,16 +48,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.xml.ws.BindingProvider;
 
-import org.busdox.servicemetadata.locator._1.MigrationRecordType;
-import org.busdox.servicemetadata.locator._1.PageRequestType;
-import org.busdox.servicemetadata.locator._1.ParticipantIdentifierPageType;
-import org.busdox.servicemetadata.locator._1.ServiceMetadataPublisherServiceForParticipantType;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.BadRequestFault;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.InternalErrorFault;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.ManageBusinessIdentifierService;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.ManageBusinessIdentifierServiceSoap;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.NotFoundFault;
-import org.busdox.servicemetadata.managebusinessidentifierservice._1.UnauthorizedFault;
 import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +57,16 @@ import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.participant.BadRequestFault;
+import com.helger.peppol.smlclient.participant.InternalErrorFault;
+import com.helger.peppol.smlclient.participant.ManageBusinessIdentifierService;
+import com.helger.peppol.smlclient.participant.ManageBusinessIdentifierServiceSoap;
+import com.helger.peppol.smlclient.participant.MigrationRecordType;
+import com.helger.peppol.smlclient.participant.NotFoundFault;
+import com.helger.peppol.smlclient.participant.PageRequestType;
+import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
+import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceForParticipantType;
+import com.helger.peppol.smlclient.participant.UnauthorizedFault;
 
 /**
  * This class is used for calling the Manage Participant Identifier interface on

@@ -48,7 +48,6 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
-import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
 import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
 import org.junit.After;
 import org.junit.Before;
@@ -69,11 +68,12 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTest;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.utils.BusdoxURLUtils;
 
 /**
  * This class is for BRZ internal use only!
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore

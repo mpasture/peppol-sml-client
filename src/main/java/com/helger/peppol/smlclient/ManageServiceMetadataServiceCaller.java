@@ -46,14 +46,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.xml.ws.BindingProvider;
 
-import org.busdox.servicemetadata.locator._1.PublisherEndpointType;
-import org.busdox.servicemetadata.locator._1.ServiceMetadataPublisherServiceType;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.BadRequestFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.InternalErrorFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.ManageServiceMetadataService;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.ManageServiceMetadataServiceSoap;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.NotFoundFault;
-import org.busdox.servicemetadata.manageservicemetadataservice._1.UnauthorizedFault;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +53,14 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.smp.BadRequestFault;
+import com.helger.peppol.smlclient.smp.InternalErrorFault;
+import com.helger.peppol.smlclient.smp.ManageServiceMetadataService;
+import com.helger.peppol.smlclient.smp.ManageServiceMetadataServiceSoap;
+import com.helger.peppol.smlclient.smp.NotFoundFault;
+import com.helger.peppol.smlclient.smp.PublisherEndpointType;
+import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
+import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 
 /**
  * This class is used for calling the service meta data interface of the SML. It
