@@ -75,12 +75,10 @@ import com.helger.peppol.smlclient.participant.UnauthorizedFault;
  * @author Ravnholt
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ManageParticipantIdentifierServiceCaller
+public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientCaller
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
   private static final String NO_SMP_ID_REQUIRED = "";
-
-  private final URL m_aEndpointAddress;
 
   /**
    * Constructs a service caller for the manage business identifier interface.<br>
@@ -106,21 +104,7 @@ public class ManageParticipantIdentifierServiceCaller
    */
   public ManageParticipantIdentifierServiceCaller (@Nonnull final URL aEndpointAddress)
   {
-    ValueEnforcer.notNull (aEndpointAddress, "EndpointAddress");
-    m_aEndpointAddress = aEndpointAddress;
-
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Using SML endpoint address '" + m_aEndpointAddress.toExternalForm () + "'");
-  }
-
-  /**
-   * @return The endpoint address as specified in the constructor. Never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public URL getEndpointAddress ()
-  {
-    return m_aEndpointAddress;
+    super (aEndpointAddress);
   }
 
   /**
@@ -135,8 +119,7 @@ public class ManageParticipantIdentifierServiceCaller
   {
     final ManageBusinessIdentifierService aService = new ManageBusinessIdentifierService ();
     final ManageBusinessIdentifierServiceSoap aPort = aService.getManageBusinessIdentifierServicePort ();
-    ((BindingProvider) aPort).getRequestContext ().put (BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                                                        m_aEndpointAddress.toString ());
+    applyWSSettingsToBindingProvider ((BindingProvider) aPort);
     return aPort;
   }
 
