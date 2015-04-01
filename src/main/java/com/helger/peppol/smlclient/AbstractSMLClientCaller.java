@@ -44,6 +44,7 @@ import java.net.URL;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import javax.xml.ws.BindingProvider;
@@ -52,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotations.OverrideOnDemand;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
@@ -148,6 +150,8 @@ public abstract class AbstractSMLClientCaller
     m_aHostnameVerifier = aHostnameVerifier;
   }
 
+  @OverrideOnDemand
+  @OverridingMethodsMustInvokeSuper
   protected void applyWSSettingsToBindingProvider (@Nonnull final BindingProvider aBP)
   {
     aBP.getRequestContext ().put (BindingProvider.ENDPOINT_ADDRESS_PROPERTY, m_aEndpointAddress.toString ());
