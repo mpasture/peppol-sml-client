@@ -76,7 +76,7 @@ import com.helger.peppol.utils.BusdoxURLUtils;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Ignore
+@Ignore ("Requires an SML with active DNS connection to be available")
 public final class DNSRegistrationTest extends AbstractSMLClientTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (DNSRegistrationTest.class);

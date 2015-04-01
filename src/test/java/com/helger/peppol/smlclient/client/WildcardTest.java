@@ -66,7 +66,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
  * @author Ravnholt<br>
  *         PEPPOL.AT, BRZ, Philip Helger
  */
-@Ignore
+@Ignore ("Requires a running SML")
 public final class WildcardTest extends AbstractSMLClientTest
 {
   private static final String BUSINESS_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME;
