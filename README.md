@@ -9,6 +9,11 @@ This project contains 2 main classes for talking to the PEPPOL SML:
   
 Both classes offer the possibility to set an optional custom `SSLSocketFactory` as well as a custom optional `HostnameVerifier`. The implementation of this is in the base class `AbstractSMLClientCaller`.
 
+This project is used by the following projects:
+  * [peppol-smp-server-library](https://github.com/phax/peppol-smp-server-library/) - the SMP server library with the shared code use in all SMP server implementations.
+  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a database backend
+  * [peppol-smp-server-lightweight](https://github.com/phax/peppol-smp-server-lightweight/) - the SMP server with a file-based backend
+
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
 #Building from source
