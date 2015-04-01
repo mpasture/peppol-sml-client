@@ -38,23 +38,45 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smlclient.client;
+package com.helger.peppol.smlclient;
 
-import org.junit.Test;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.smlclient.participant.ManageBusinessIdentifierService;
+import com.helger.peppol.utils.ConfigFile;
 
 /**
- * Test class for class {@link ManageBusinessIdentifierService}.
+ * This class manages the special test configuration file for this project. The
+ * configuration file is located in
+ * <code>src/test/resources/sml-client-test.properties</code>
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
-public final class ManageBusinessIdentifierServiceTest
+@Immutable
+public final class SMLClientTestConfig
 {
-  @Test
-  public void testCtor ()
+  private static final ConfigFile s_aConfig = new ConfigFile ("private-sml-client-test.properties",
+                                                              "sml-client-test.properties");
+
+  // init
+  static
   {
-    // Ensure that the code for the service was created
-    new ManageBusinessIdentifierService ();
+    // Apply system properties
+    s_aConfig.applyAllNetworkSystemProperties ();
+  }
+
+  private SMLClientTestConfig ()
+  {}
+
+  @Nullable
+  public static String getKeystoreLocation ()
+  {
+    return s_aConfig.getString ("keystore.location");
+  }
+
+  @Nullable
+  public static String getKeystorePassword ()
+  {
+    return s_aConfig.getString ("keystore.password");
   }
 }

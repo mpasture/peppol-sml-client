@@ -100,20 +100,11 @@ public final class DNSRegistrationTest extends AbstractSMLClientTest
 
   private static final String INTERNAL_DNS_SERVER = "blixdns0";
 
-  static
-  {
-    System.setProperty ("http.proxyHost", "172.30.9.12");
-    System.setProperty ("http.proxyPort", "8080");
-    System.setProperty ("https.proxyHost", "172.30.9.12");
-    System.setProperty ("https.proxyPort", "8080");
-    s_aLogger.info ("Set proxies");
-  }
-
   @Nullable
   private static String _DNSLookupPI (final ParticipantIdentifierType aPI) throws Exception
   {
-    final String host = BusdoxURLUtils.getDNSNameOfParticipant (aPI, SML_INFO);
-    return _DNSLookup (host);
+    final String sHost = BusdoxURLUtils.getDNSNameOfParticipant (aPI, SML_INFO);
+    return _DNSLookup (sHost);
   }
 
   @Nullable

@@ -82,15 +82,16 @@ public final class WildcardTest extends AbstractSMLClientTest
 
   private static final String UNAUTHRIZED_SML_ID = "SMP-ID2";
 
-  private ManageServiceMetadataServiceCaller m_aClient;
+  private ManageServiceMetadataServiceCaller m_aSMClient;
 
   @Before
   public void initialize () throws Exception
   {
-    m_aClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+    m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
     try
     {
-      m_aClient.delete (SMP_ID);
+      m_aSMClient.delete (SMP_ID);
     }
     catch (final NotFoundFault e)
     {
@@ -105,13 +106,13 @@ public final class WildcardTest extends AbstractSMLClientTest
     aEndpoint.setPhysicalAddress (ADDRESS_PHYSICAL);
     aServiceMetadataCreate.setPublisherEndpoint (aEndpoint);
 
-    m_aClient.create (aServiceMetadataCreate);
+    m_aSMClient.create (aServiceMetadataCreate);
   }
 
   @After
   public void deleteSMP () throws Exception
   {
-    m_aClient.delete (SMP_ID);
+    m_aSMClient.delete (SMP_ID);
   }
 
   @Test
@@ -119,8 +120,9 @@ public final class WildcardTest extends AbstractSMLClientTest
   {
     try
     {
-      final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      client.create (SMP_ID, new SimpleParticipantIdentifier (BUSINESS_IDENTIFIER_SCHEME, "*"));
+      final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.create (SMP_ID, new SimpleParticipantIdentifier (BUSINESS_IDENTIFIER_SCHEME, "*"));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
     catch (final UnauthorizedFault e)
@@ -132,11 +134,12 @@ public final class WildcardTest extends AbstractSMLClientTest
   @Test
   public void createWildcardUnauthorizedFault_WrongUser () throws Exception
   {
-
     try
     {
-      final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      client.create (UNAUTHRIZED_SML_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
+      final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.create (UNAUTHRIZED_SML_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME,
+                                                                             WILDCARD_PI));
       fail ("The user should not be authorized to insert PI when wildcard is on for scheme.");
     }
     catch (final UnauthorizedFault e)
@@ -152,8 +155,9 @@ public final class WildcardTest extends AbstractSMLClientTest
   {
     try
     {
-      final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      client.create (SMP_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
+      final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.create (SMP_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
     catch (final BadRequestFault e)
@@ -165,14 +169,16 @@ public final class WildcardTest extends AbstractSMLClientTest
   @Test
   public void createDeleteWildcard () throws Exception
   {
-    final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
     final ParticipantIdentifierType aPI = new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, "*");
-    client.create (SMP_ID, aPI);
+    aPIClient.create (SMP_ID, aPI);
 
     // try to delete with un-authorized user!
     try
     {
       final ManageParticipantIdentifierServiceCaller unAuthorizedClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+      unAuthorizedClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
       unAuthorizedClient.delete (aPI);
       fail ("The user does not own the identifier : *");
     }
@@ -181,6 +187,6 @@ public final class WildcardTest extends AbstractSMLClientTest
       assertTrue (e.getMessage (), e.getMessage ().contains ("The user does not own the identifier."));
     }
 
-    client.delete (aPI);
+    aPIClient.delete (aPI);
   }
 }

@@ -66,11 +66,11 @@ import com.helger.web.https.HostnameVerifierAlwaysTrue;
 
 /**
  * This class tests the URL connection to the SML that is secured with client
- * certificates.
- * 
+ * certificates. It requires a valid keystore to be configured.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Ignore
+@Ignore ("Requires a keystore to be present and configured")
 public final class SSLConnectTest extends AbstractSMLClientTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SSLConnectTest.class);
@@ -78,29 +78,20 @@ public final class SSLConnectTest extends AbstractSMLClientTest
   @Test
   public void testConnect () throws Exception
   {
-    System.setProperty ("http.proxyHost", "172.30.9.12");
-    System.setProperty ("http.proxyPort", "8080");
-    System.setProperty ("https.proxyHost", "172.30.9.12");
-    System.setProperty ("https.proxyPort", "8080");
-    // System.setProperty ("https.protocols", "TLSv1");
-    // System.setProperty ("https.protocols", "SSLv3");
-    if (false)
-      System.setProperty ("javax.net.debug", "ssl");
-
     // Load the client certificate
-    final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore ("keys/sml_client_keystore.jks", "peppol");
+    final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
     final KeyManagerFactory aKMF = KeyManagerFactory.getInstance ("SunX509");
-    aKMF.init (aKeyStore, "peppol".toCharArray ());
+    aKMF.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
 
     // Trust all
     final TrustManager [] aTrustMgrs = new TrustManager [] { new DoNothingTrustManager (false) };
 
     // SSL context
-    final SSLContext aSSLContext = SSLContext.getInstance ("SSL");
+    final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
     aSSLContext.init (aKMF.getKeyManagers (), aTrustMgrs, VerySecureRandom.getInstance ());
 
     // Configure and open connection
-    final HttpsURLConnection aURLConn = (HttpsURLConnection) new URL ("https://sml.peppolcentral.org/").openConnection ();
+    final HttpsURLConnection aURLConn = (HttpsURLConnection) new URL (SML_INFO.getManagementServiceURL ()).openConnection ();
     aURLConn.setSSLSocketFactory (aSSLContext.getSocketFactory ());
     aURLConn.setHostnameVerifier (new HostnameVerifierAlwaysTrue (true));
     aURLConn.setRequestMethod ("GET");

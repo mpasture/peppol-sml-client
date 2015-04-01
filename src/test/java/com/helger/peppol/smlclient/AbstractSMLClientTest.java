@@ -42,72 +42,48 @@ package com.helger.peppol.smlclient;
 
 import java.security.KeyStore;
 
-import javax.net.ssl.HttpsURLConnection;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import org.junit.BeforeClass;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.helger.commons.SystemProperties;
-import com.helger.commons.annotations.DevelopersNote;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.sml.SimpleSMLInfo;
 import com.helger.peppol.utils.KeyStoreUtils;
 import com.helger.web.https.DoNothingTrustManager;
 
 /**
- * This class tests the URL connection to the SML that is secured with client
- * certificates.
+ * Base class for SML client tests, with some utility content.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@DevelopersNote ("You need to create a keystore file !")
 public abstract class AbstractSMLClientTest
 {
-  public static final ISMLInfo SML_INFO = true ? ESML.TEST : new SimpleSMLInfo ("smj.peppolcentral.org.",
-                                                                                "http://plixvdp2:8080",
-                                                                                "http://plixvdp2:8080/smk/",
-                                                                                true);
+  public static final ISMLInfo SML_INFO = ESML.TEST;
+  protected static final String KEYSTORE_PATH = SMLClientTestConfig.getKeystoreLocation ();
+  protected static final String KEYSTORE_PASSWORD = SMLClientTestConfig.getKeystorePassword ();
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractSMLClientTest.class);
-  private static final String KEYSTORE_PATH = "keys/sml_client_keystore.jks";
-  private static final String KEYSTORE_PASSWORD = "peppol";
-
-  @BeforeClass
-  public static final void initClass () throws Exception
+  @Nullable
+  public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo) throws Exception
   {
-    initSSL (SML_INFO);
-  }
+    if (!aSMLInfo.requiresClientCertificate ())
+      return null;
 
-  public static final void initSSL (final ISMLInfo aSMLInfo) throws Exception
-  {
-    s_aLogger.info ("Using Java version " + SystemProperties.getJavaVersion ());
-    if (aSMLInfo.requiresClientCertificate ())
-    {
-      // initialize debug properties
-      if (false)
-        System.setProperty ("javax.net.debug", "all");
-      if (false)
-        System.setProperty ("java.security.debug", "all");
+    // Main key storage
+    final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
 
-      // Main key storage
-      final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    // Key manager
+    final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");
+    aKeyManagerFactory.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
 
-      // Key manager
-      final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");
-      aKeyManagerFactory.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
-
-      // Assign key manager and empty trust manager to SSL context
-      final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
-      aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
-                    new TrustManager [] { new DoNothingTrustManager (true) },
-                    VerySecureRandom.getInstance ());
-      HttpsURLConnection.setDefaultSSLSocketFactory (aSSLCtx.getSocketFactory ());
-    }
+    // Assign key manager and empty trust manager to SSL context
+    final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
+    aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
+                  new TrustManager [] { new DoNothingTrustManager (true) },
+                  VerySecureRandom.getInstance ());
+    return aSSLCtx.getSocketFactory ();
   }
 }

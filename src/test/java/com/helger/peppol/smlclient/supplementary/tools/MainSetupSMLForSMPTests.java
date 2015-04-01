@@ -51,7 +51,7 @@ import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 /**
  * This class ensures the SML contains the necessary data for performing the SMP
  * client tests.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class MainSetupSMLForSMPTests
@@ -61,10 +61,11 @@ public final class MainSetupSMLForSMPTests
 
   public static void main (final String [] args) throws Exception
   {
-    AbstractSMLClientTest.initSSL (SML_INFO);
-
     final ManageServiceMetadataServiceCaller aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+    aSMClient.setSSLSocketFactory (AbstractSMLClientTest.createConfiguredSSLSocketFactory (SML_INFO));
+
     final ManageParticipantIdentifierServiceCaller aParticipantClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTest.createConfiguredSSLSocketFactory (SML_INFO));
 
     try
     {

@@ -89,12 +89,12 @@ public final class LibraryTest extends AbstractSMLClientTest
   private static final String TEST_BUSINESS_IDENTIFIER1 = "0088:5798000999999";
   private static final String TEST_BUSINESS_IDENTIFIER2 = "0088:5798009999999";
 
-  private ManageServiceMetadataServiceCaller m_aClient;
-  private ServiceMetadataPublisherServiceType m_aServiceMetadataCreate;
+  private ManageServiceMetadataServiceCaller m_aSMClient;
+  private ServiceMetadataPublisherServiceType m_aServiceMetadataPublisher;
 
   @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSmp (@Nonnull final ManageServiceMetadataServiceCaller aSMPClient,
-                                                                 @Nonnull @Nonempty final String sSMPID) throws Exception
+  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMLSMPClient,
+                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);
@@ -103,35 +103,38 @@ public final class LibraryTest extends AbstractSMLClientTest
     aEndpoint.setPhysicalAddress (P_ENDPOINTADDRESS);
     aServiceMetadataCreate.setPublisherEndpoint (aEndpoint);
 
-    aSMPClient.create (aServiceMetadataCreate);
+    aSMLSMPClient.create (aServiceMetadataCreate);
     return aServiceMetadataCreate;
   }
 
   @Before
   public void cleanup () throws Exception
   {
-    m_aClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+    m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
     try
     {
-      m_aClient.delete (SMP_ID);
+      m_aSMClient.delete (SMP_ID);
     }
     catch (final NotFoundFault e)
     {
       // This is fine, since we are just cleaning
     }
 
-    m_aServiceMetadataCreate = _createSmp (m_aClient, SMP_ID);
+    m_aServiceMetadataPublisher = _createSMPData (m_aSMClient, SMP_ID);
   }
 
-  @Ignore
   @Test
+  @Ignore
   public void dnsCreationTest () throws Exception
   {
-    final ManageParticipantIdentifierServiceCaller biClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+
     final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     try
     {
-      biClient.delete (aPI);
+      aPIClient.delete (aPI);
     }
     catch (final com.helger.peppol.smlclient.participant.NotFoundFault e)
     {
@@ -151,7 +154,7 @@ public final class LibraryTest extends AbstractSMLClientTest
       // This should happen!
     }
 
-    biClient.create (m_aServiceMetadataCreate.getServiceMetadataPublisherID (), aPI);
+    aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (), aPI);
 
     aAddress = InetAddress.getByName (sDNSString);
     assertEquals (P_ENDPOINTADDRESS, aAddress.getHostAddress ());
@@ -160,15 +163,15 @@ public final class LibraryTest extends AbstractSMLClientTest
   @Test
   public void testManageServiceMetadata () throws Exception
   {
-    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aClient.read (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aSMClient.read (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
-    m_aClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
 
-    assertEquals (m_aServiceMetadataCreate.getServiceMetadataPublisherID (),
+    assertEquals (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
                   aServiceMetadataRead.getServiceMetadataPublisherID ());
-    assertEquals (m_aServiceMetadataCreate.getPublisherEndpoint ().getLogicalAddress (),
+    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getLogicalAddress (),
                   aServiceMetadataRead.getPublisherEndpoint ().getLogicalAddress ());
-    assertEquals (m_aServiceMetadataCreate.getPublisherEndpoint ().getPhysicalAddress (),
+    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getPhysicalAddress (),
                   aServiceMetadataRead.getPublisherEndpoint ().getPhysicalAddress ());
   }
 
@@ -176,6 +179,7 @@ public final class LibraryTest extends AbstractSMLClientTest
   public void testManageServiceMetadataWithManyIdentifier () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final long nStartIdentifier = 5798000999999l;
     final int nLastIdentifier = 150;
@@ -183,13 +187,13 @@ public final class LibraryTest extends AbstractSMLClientTest
     {
       System.out.println ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
-      aPIClient.create (m_aServiceMetadataCreate.getServiceMetadataPublisherID (),
+      aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
                         SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
     }
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
-    final ServiceMetadataPublisherServiceType aServiceMetadataCreateNew = _createSmp (m_aClient, SMP_ID);
+    final ServiceMetadataPublisherServiceType aServiceMetadataCreateNew = _createSMPData (m_aSMClient, SMP_ID);
 
     // Delete one that was on a second page
     final long nIdentifier = nStartIdentifier + nLastIdentifier;
@@ -200,22 +204,22 @@ public final class LibraryTest extends AbstractSMLClientTest
   @Test (expected = NotFoundFault.class)
   public void testManageServiceMetadataDoubleDelete () throws Exception
   {
-    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aClient.read (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aSMClient.read (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aServiceMetadataRead);
-    m_aClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
     // Delete again
-    m_aClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
   }
 
   @Test
   public void manageServiceMetadataUpdateTest () throws Exception
   {
-    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aClient.read (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aSMClient.read (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aServiceMetadataRead);
     aServiceMetadataRead.getPublisherEndpoint ().setPhysicalAddress ("173.156.1.1");
-    m_aClient.update (aServiceMetadataRead);
-    final ServiceMetadataPublisherServiceType aAfterSignedServiceMetadataRead = m_aClient.read (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
-    m_aClient.delete (aAfterSignedServiceMetadataRead.getServiceMetadataPublisherID ());
+    m_aSMClient.update (aServiceMetadataRead);
+    final ServiceMetadataPublisherServiceType aAfterSignedServiceMetadataRead = m_aSMClient.read (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (aAfterSignedServiceMetadataRead.getServiceMetadataPublisherID ());
     assertEquals ("173.156.1.1", aAfterSignedServiceMetadataRead.getPublisherEndpoint ().getPhysicalAddress ());
   }
 
@@ -223,17 +227,18 @@ public final class LibraryTest extends AbstractSMLClientTest
   public void testManageBusinessIdentifier () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final ParticipantIdentifierType aBusinessIdentifierCreate = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
     final ServiceMetadataPublisherServiceForParticipantType saSrviceMetadataPublisherServiceForBusiness = new ServiceMetadataPublisherServiceForParticipantType ();
     saSrviceMetadataPublisherServiceForBusiness.setParticipantIdentifier (aBusinessIdentifierCreate);
-    saSrviceMetadataPublisherServiceForBusiness.setServiceMetadataPublisherID (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    saSrviceMetadataPublisherServiceForBusiness.setServiceMetadataPublisherID (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     aPIClient.create (saSrviceMetadataPublisherServiceForBusiness);
 
     final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -246,24 +251,25 @@ public final class LibraryTest extends AbstractSMLClientTest
 
     aPIClient.deleteList (aBusinessIdentifiers);
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
 
   @Test (expected = NotFoundFault.class)
   public void testManageBusinessIdentifierDoubleDelete () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final ParticipantIdentifierType aBusinessIdentifierCreate = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
     final ServiceMetadataPublisherServiceForParticipantType aServiceMetadataPublisherServiceForBusiness = new ServiceMetadataPublisherServiceForParticipantType ();
     aServiceMetadataPublisherServiceForBusiness.setParticipantIdentifier (aBusinessIdentifierCreate);
-    aServiceMetadataPublisherServiceForBusiness.setServiceMetadataPublisherID (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    aServiceMetadataPublisherServiceForBusiness.setServiceMetadataPublisherID (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
 
     aPIClient.create (aServiceMetadataPublisherServiceForBusiness);
 
     final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -277,32 +283,34 @@ public final class LibraryTest extends AbstractSMLClientTest
     aPIClient.deleteList (aBusinessIdentifiers);
     aPIClient.deleteList (aBusinessIdentifiers);
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
 
   @Test
   public void testManageBusinessIdentifierListWithZeroElements () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final Collection <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new ArrayList <ParticipantIdentifierType> ();
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
     final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
     assertEquals (0, aBusinessIdentifiers.size ());
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
 
   @Test
   public void testManageBusinessIdentifierListWithOneElement () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final Collection <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new ArrayList <ParticipantIdentifierType> ();
 
@@ -312,7 +320,7 @@ public final class LibraryTest extends AbstractSMLClientTest
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
     final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -326,13 +334,14 @@ public final class LibraryTest extends AbstractSMLClientTest
 
     aPIClient.deleteList (aBusinessIdentifiers);
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
 
   @Test
   public void testManageBusinessIdentifierListWithTwoElement () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final Map <String, ParticipantIdentifierType> aBusinessIdentifiersCreate = new HashMap <String, ParticipantIdentifierType> ();
 
@@ -345,7 +354,7 @@ public final class LibraryTest extends AbstractSMLClientTest
     aPIClient.createList (aBusinessIdentifiersCreate.values (), SMP_ID);
 
     final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -366,15 +375,17 @@ public final class LibraryTest extends AbstractSMLClientTest
 
     aPIClient.deleteList (aBusinessIdentifiers);
 
-    m_aClient.delete (m_aServiceMetadataCreate.getServiceMetadataPublisherID ());
+    m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
   }
 
   @Test
   public void migrateTest () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final ManageServiceMetadataServiceCaller aClient2 = new ManageServiceMetadataServiceCaller (SML_INFO);
+    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
     try
     {
       aClient2.delete (SMP_ID2);
@@ -384,9 +395,11 @@ public final class LibraryTest extends AbstractSMLClientTest
       // This is fine, since we are just cleaning
     }
 
-    _createSmp (aClient2, SMP_ID2);
+    _createSMPData (aClient2, SMP_ID2);
 
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+
     final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     aPIClientOld.create (SMP_ID, aPI);
     final UUID aMigrationKey = aPIClientOld.prepareToMigrate (aPI, SMP_ID);
@@ -411,8 +424,10 @@ public final class LibraryTest extends AbstractSMLClientTest
   public void createExistingBusinessIdentifierUnauthorized () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     final ManageServiceMetadataServiceCaller aClient2 = new ManageServiceMetadataServiceCaller (SML_INFO);
+    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
     try
     {
       aClient2.delete (SMP_ID2);
@@ -422,9 +437,10 @@ public final class LibraryTest extends AbstractSMLClientTest
       // This is fine, since we are just cleaning
     }
 
-    _createSmp (aClient2, SMP_ID2);
+    _createSMPData (aClient2, SMP_ID2);
 
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
     aPIClientOld.create (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
 
