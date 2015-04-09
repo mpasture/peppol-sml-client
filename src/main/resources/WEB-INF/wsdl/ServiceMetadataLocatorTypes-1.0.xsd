@@ -51,14 +51,10 @@
   <xs:import schemaLocation="Identifiers-1.0.xsd" namespace="http://busdox.org/transport/identifiers/1.0/" />
   
   <xs:element name="ServiceMetadataPublisherID" type="xs:string" />
-  <xs:element name="CreateServiceMetadataPublisherService" 
-    type="ServiceMetadataPublisherServiceType"/>
-  <xs:element name="ReadServiceMetadataPublisherService" 
-    type="ServiceMetadataPublisherServiceType"/>
-  <xs:element name="UpdateServiceMetadataPublisherService" 
-    type="ServiceMetadataPublisherServiceType"/>
-  <xs:element name="ServiceMetadataPublisherService" 
-    type="ServiceMetadataPublisherServiceType"/>
+  <xs:element name="CreateServiceMetadataPublisherService" type="ServiceMetadataPublisherServiceType"/>
+  <xs:element name="ReadServiceMetadataPublisherService" type="ServiceMetadataPublisherServiceType"/>
+  <xs:element name="UpdateServiceMetadataPublisherService" type="ServiceMetadataPublisherServiceType"/>
+  <xs:element name="ServiceMetadataPublisherService" type="ServiceMetadataPublisherServiceType"/>
   <xs:complexType name="ServiceMetadataPublisherServiceType">
     <xs:sequence>
       <xs:element name="PublisherEndpoint" type="PublisherEndpointType" />
@@ -77,10 +73,8 @@
       <xs:element ref="ids:ParticipantIdentifier" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="CreateParticipantIdentifier" 
-    type="ServiceMetadataPublisherServiceForParticipantType"/>
-  <xs:element name="DeleteParticipantIdentifier" 
-    type="ServiceMetadataPublisherServiceForParticipantType"/>
+  <xs:element name="CreateParticipantIdentifier" type="ServiceMetadataPublisherServiceForParticipantType"/>
+  <xs:element name="DeleteParticipantIdentifier" type="ServiceMetadataPublisherServiceForParticipantType"/>
   <xs:element name="ParticipantIdentifierPage" type="ParticipantIdentifierPageType"/>
   <xs:element name="CreateList" type="ParticipantIdentifierPageType"/>
   <xs:element name="DeleteList" type="ParticipantIdentifierPageType"/>
@@ -116,5 +110,4 @@
       <xs:element name="FaultMessage" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-
 </xs:schema>

@@ -50,22 +50,19 @@
   xmlns:s="http://www.w3.org/2001/XMLSchema" 
   xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
   name="ManageServiceMetadataService" 
-  targetNamespace=
-    "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/" 
+  targetNamespace="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/" 
   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   <wsdl:types>
     <s:schema elementFormDefault="qualified" 
-      targetNamespace=
-        "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
+              targetNamespace="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
       <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" 
-        schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
+                schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="createIn">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
-    <wsdl:part name="messagePart" 
-      element="lrs:CreateServiceMetadataPublisherService" />
+    <wsdl:part name="messagePart" element="lrs:CreateServiceMetadataPublisherService" />
   </wsdl:message>  
   <wsdl:message name="createOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
@@ -76,13 +73,11 @@
   </wsdl:message>
   <wsdl:message name="readOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
-    <wsdl:part name="messagePart" 
-      element="lrs:ServiceMetadataPublisherService" />
+    <wsdl:part name="messagePart" element="lrs:ServiceMetadataPublisherService" />
   </wsdl:message>
   <wsdl:message name="updateIn">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
-    <wsdl:part name="messagePart" 
-      element="lrs:UpdateServiceMetadataPublisherService" />
+    <wsdl:part name="messagePart" element="lrs:UpdateServiceMetadataPublisherService" />
   </wsdl:message>
   <wsdl:message name="updateOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
@@ -148,9 +143,8 @@
     type="tns:ManageServiceMetadataServiceSoap">
     <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Create">
-      <soap11:operation soapAction=
-      	"http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:createIn"
-      	style="document" />
+      <soap11:operation soapAction=	"http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:createIn"
+                        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -168,9 +162,8 @@
       </wsdl:fault>      
     </wsdl:operation>
     <wsdl:operation name="Read">
-      <soap11:operation soapAction=
-        "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:readIn" 
-        style="document" />
+      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:readIn" 
+                        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -190,10 +183,9 @@
         <soap:fault name="BadRequestFault" use="literal"/>
       </wsdl:fault>           
     </wsdl:operation>
-	<wsdl:operation name="Update">
-      <soap11:operation soapAction=
-        "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:updateIn" 
-        style="document" />
+	  <wsdl:operation name="Update">
+      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:updateIn" 
+                        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -214,9 +206,8 @@
       </wsdl:fault>           
     </wsdl:operation>
     <wsdl:operation name="Delete">
-      <soap11:operation soapAction=
-        "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:deleteIn" 
-        style="document" />
+      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:deleteIn" 
+                        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -239,7 +230,7 @@
   </wsdl:binding>
   <wsdl:service name="ManageServiceMetadataService">
     <wsdl:port name="ManageServiceMetadataServicePort" binding="tns:ManageServiceMetadataServiceSoap">
-	  <soap:address location="unknown"/>
+	    <soap:address location="unknown"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
