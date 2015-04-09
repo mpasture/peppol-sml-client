@@ -56,7 +56,7 @@
   <wsdl:types>
     <s:schema elementFormDefault="qualified" 
               targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/Schema/">
-      <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
+      <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="createIn">

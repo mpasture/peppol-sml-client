@@ -67,40 +67,7 @@
       <xs:element name="PhysicalAddress" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="ServiceMetadataPublisherServiceForParticipantType">
-    <xs:sequence>
-      <xs:element ref="ServiceMetadataPublisherID"/>
-      <xs:element ref="ids:ParticipantIdentifier" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="CreateParticipantIdentifier" type="ServiceMetadataPublisherServiceForParticipantType"/>
-  <xs:element name="DeleteParticipantIdentifier" type="ServiceMetadataPublisherServiceForParticipantType"/>
-  <xs:element name="ParticipantIdentifierPage" type="ParticipantIdentifierPageType"/>
-  <xs:element name="CreateList" type="ParticipantIdentifierPageType"/>
-  <xs:element name="DeleteList" type="ParticipantIdentifierPageType"/>
-  <xs:complexType name="ParticipantIdentifierPageType">
-    <xs:sequence>
-      <xs:element ref="ids:ParticipantIdentifier" minOccurs="0" maxOccurs="unbounded" />
-      <xs:element ref="ServiceMetadataPublisherID" minOccurs="0" />
-      <xs:element name="NextPageIdentifier" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="PageRequest" type="PageRequestType"/>
-  <xs:complexType name="PageRequestType">
-    <xs:sequence>
-      <xs:element ref="ServiceMetadataPublisherID"/>
-      <xs:element name="NextPageIdentifier" type="xs:string" minOccurs="0"/>
-    </xs:sequence>    
-  </xs:complexType>  
-  <xs:element name="PrepareMigrationRecord" type="MigrationRecordType"/>
-  <xs:element name="CompleteMigrationRecord" type="MigrationRecordType"/>
-  <xs:complexType name="MigrationRecordType">
-    <xs:sequence>
-      <xs:element ref="ServiceMetadataPublisherID"/>
-      <xs:element ref="ids:ParticipantIdentifier" />
-      <xs:element name="MigrationKey" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
+
   <xs:element name="BadRequestFault" type="FaultType"/>
   <xs:element name="InternalErrorFault" type="FaultType"/>
   <xs:element name="NotFoundFault" type="FaultType"/>
