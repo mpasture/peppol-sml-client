@@ -102,7 +102,7 @@ public final class SSLConnectTest extends AbstractSMLClientTest
       s_aLogger.info ("Status code:  " + aURLConn.getResponseCode ());
       s_aLogger.info ("Cipher suite: " + aURLConn.getCipherSuite ());
       s_aLogger.info ("Encoding:     " + aURLConn.getContentEncoding ());
-      if (false)
+      if (true)
       {
         int i = 0;
         for (final Certificate aCert : aURLConn.getServerCertificates ())

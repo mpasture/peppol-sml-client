@@ -56,7 +56,8 @@
   <wsdl:types>
     <s:schema elementFormDefault="qualified" 
               targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/Schema/">
-      <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
+      <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" 
+                schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="createIn">
@@ -88,19 +89,19 @@
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
   <wsdl:message name="migrateIn">
-  	<wsdl:part name="migrateIn" element="lrs:CompleteMigrationRecord"/>
+    <wsdl:part name="migrateIn" element="lrs:CompleteMigrationRecord"/>
   </wsdl:message>
   <wsdl:message name="migrateOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
   <wsdl:message name="createListIn">
-  	<wsdl:part name="createListIn" element="lrs:CreateList"/>
+    <wsdl:part name="createListIn" element="lrs:CreateList"/>
   </wsdl:message>
   <wsdl:message name="createListOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
   <wsdl:message name="deleteListIn">
-  	<wsdl:part name="deleteListIn" element="lrs:DeleteList"/>
+    <wsdl:part name="deleteListIn" element="lrs:DeleteList"/>
   </wsdl:message>
   <wsdl:message name="deleteListOut">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
@@ -179,11 +180,14 @@
       <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="ManageBusinessIdentifierServiceSoap" type="tns:ManageBusinessIdentifierServiceSoap">
+  <wsdl:binding name="ManageBusinessIdentifierServiceSoap" 
+    type="tns:ManageBusinessIdentifierServiceSoap">
     <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Create">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:createIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :createIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -204,8 +208,10 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="CreateList">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:createListIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :createListIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -226,8 +232,10 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="Delete">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:deleteIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :deleteIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -248,8 +256,10 @@
       </wsdl:fault>         
     </wsdl:operation>
     <wsdl:operation name="DeleteList">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:deleteListIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :deleteListIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -270,8 +280,10 @@
       </wsdl:fault>         
     </wsdl:operation>
     <wsdl:operation name="List">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:listIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :listIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -292,8 +304,10 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="PrepareToMigrate">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:prepareMigrateIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :prepareMigrateIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -314,8 +328,10 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="Migrate">
-      <soap11:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/:migrateIn" 
-                        style="document" />
+      <soap11:operation soapAction=
+        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/
+        :migrateIn" 
+        style="document" />
       <wsdl:input>
         <soap11:body use="literal" />
       </wsdl:input>
@@ -338,7 +354,7 @@
   </wsdl:binding>
   <wsdl:service name="ManageBusinessIdentifierService">
     <wsdl:port name="ManageBusinessIdentifierServicePort" binding="tns:ManageBusinessIdentifierServiceSoap">
-	  <soap:address location="unknown"/>
+    <soap:address location="unknown"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
