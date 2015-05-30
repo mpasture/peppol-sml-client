@@ -63,8 +63,8 @@ import com.helger.web.https.DoNothingTrustManager;
 public abstract class AbstractSMLClientTest
 {
   public static final ISMLInfo SML_INFO = ESML.TEST;
-  protected static final String KEYSTORE_PATH = SMLClientTestConfig.getKeystoreLocation ();
-  protected static final String KEYSTORE_PASSWORD = SMLClientTestConfig.getKeystorePassword ();
+  protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeystoreLocation ();
+  protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeystorePassword ();
 
   @Nullable
   public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo) throws Exception

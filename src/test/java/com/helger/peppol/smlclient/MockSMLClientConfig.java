@@ -53,7 +53,7 @@ import com.helger.peppol.utils.ConfigFile;
  * @author Philip Helger
  */
 @Immutable
-public final class SMLClientTestConfig
+public final class MockSMLClientConfig
 {
   private static final ConfigFile s_aConfig = new ConfigFile ("private-sml-client-test.properties",
                                                               "sml-client-test.properties");
@@ -65,7 +65,7 @@ public final class SMLClientTestConfig
     s_aConfig.applyAllNetworkSystemProperties ();
   }
 
-  private SMLClientTestConfig ()
+  private MockSMLClientConfig ()
   {}
 
   @Nullable
