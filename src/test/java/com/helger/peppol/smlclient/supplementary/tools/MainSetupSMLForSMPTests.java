@@ -44,7 +44,7 @@ import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smlclient.AbstractSMLClientTest;
+import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 
@@ -62,10 +62,10 @@ public final class MainSetupSMLForSMPTests
   public static void main (final String [] args) throws Exception
   {
     final ManageServiceMetadataServiceCaller aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-    aSMClient.setSSLSocketFactory (AbstractSMLClientTest.createConfiguredSSLSocketFactory (SML_INFO));
+    aSMClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO));
 
     final ManageParticipantIdentifierServiceCaller aParticipantClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTest.createConfiguredSSLSocketFactory (SML_INFO));
+    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO));
 
     try
     {

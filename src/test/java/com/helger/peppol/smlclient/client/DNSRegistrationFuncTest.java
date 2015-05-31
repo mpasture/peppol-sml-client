@@ -65,7 +65,7 @@ import com.helger.commons.collections.ArrayHelper;
 import com.helger.commons.lang.CGStringHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.smlclient.AbstractSMLClientTest;
+import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
@@ -77,9 +77,9 @@ import com.helger.peppol.utils.BusdoxURLUtils;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore ("Requires an SML with active DNS connection to be available")
-public final class DNSRegistrationTest extends AbstractSMLClientTest
+public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DNSRegistrationTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);
 
   /*
    * Wildcard user.

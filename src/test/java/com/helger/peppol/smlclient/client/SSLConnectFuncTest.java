@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.streams.StreamUtils;
 import com.helger.commons.random.VerySecureRandom;
-import com.helger.peppol.smlclient.AbstractSMLClientTest;
+import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.utils.KeyStoreUtils;
 import com.helger.web.https.DoNothingTrustManager;
 import com.helger.web.https.HostnameVerifierAlwaysTrue;
@@ -71,9 +71,9 @@ import com.helger.web.https.HostnameVerifierAlwaysTrue;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore ("Requires a keystore to be present and configured")
-public final class SSLConnectTest extends AbstractSMLClientTest
+public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SSLConnectTest.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SSLConnectFuncTest.class);
 
   @Test
   public void testConnect () throws Exception

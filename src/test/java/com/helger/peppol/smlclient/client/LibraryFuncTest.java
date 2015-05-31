@@ -62,7 +62,7 @@ import org.junit.Test;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.smlclient.AbstractSMLClientTest;
+import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -78,7 +78,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
  *         PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore ("Requires a running SML")
-public final class LibraryTest extends AbstractSMLClientTest
+public final class LibraryFuncTest extends AbstractSMLClientTestCase
 {
   private static final String SMP_ID = "SMP-TEST-ID";
   private static final String SMP_ID2 = "SMP-TEST-ID2";

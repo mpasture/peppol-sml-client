@@ -51,7 +51,7 @@ import org.junit.Test;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.smlclient.AbstractSMLClientTest;
+import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -67,7 +67,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
  *         PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore ("Requires a running SML")
-public final class WildcardTest extends AbstractSMLClientTest
+public final class WildcardFuncTest extends AbstractSMLClientTestCase
 {
   private static final String BUSINESS_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME;
   private static final String WILDCARD_PI = "0088:1111100001111";

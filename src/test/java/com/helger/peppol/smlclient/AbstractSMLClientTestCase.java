@@ -60,7 +60,7 @@ import com.helger.web.https.DoNothingTrustManager;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public abstract class AbstractSMLClientTest
+public abstract class AbstractSMLClientTestCase
 {
   public static final ISMLInfo SML_INFO = ESML.TEST;
   protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeystoreLocation ();
