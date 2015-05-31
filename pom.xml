@@ -188,6 +188,9 @@
           <target>2.1</target>
           <extension>true</extension>
           <verbose>true</verbose>
+          <args>
+            <arg>-ph-csu</arg>
+          </args>
           <xjcArgs>
             <xjcArg>-no-header</xjcArg>
             <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
@@ -201,7 +204,6 @@
             <xjcArg>-Xph-equalshashcode</xjcArg>
             <xjcArg>-Xph-tostring</xjcArg>
             <xjcArg>-Xph-list-extension</xjcArg>
-            <xjcArg>-Xph-csu</xjcArg>
             <xjcArg>-extension</xjcArg>
             <xjcArg>-b</xjcArg>
             <xjcArg>src/main/jaxb/peppol-commons.episode</xjcArg>
@@ -216,6 +218,11 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-tools</artifactId>
             <version>${jaxws.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.helger</groupId>
+            <artifactId>ph-wsimport-plugin</artifactId>
+            <version>2.2.8</version>
           </dependency>
           <dependency>
             <groupId>com.helger</groupId>
