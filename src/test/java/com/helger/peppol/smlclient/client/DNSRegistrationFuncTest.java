@@ -61,8 +61,8 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.Type;
 
-import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.lang.CGStringHelper;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.lang.ClassHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
@@ -140,7 +140,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
       return aInetAddress.getHostAddress ();
     }
 
-    s_aLogger.info ("Unknown record type found: " + CGStringHelper.getClassLocalName (aRecord));
+    s_aLogger.info ("Unknown record type found: " + ClassHelper.getClassLocalName (aRecord));
     return aRecord.toString ();
   }
 

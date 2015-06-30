@@ -57,7 +57,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.utils.KeyStoreUtils;
@@ -125,13 +125,13 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     try
     {
       // Show success
-      final String sResult = StreamUtils.getAllBytesAsString (aURLConn.getInputStream (), CCharset.CHARSET_UTF_8_OBJ);
+      final String sResult = StreamHelper.getAllBytesAsString (aURLConn.getInputStream (), CCharset.CHARSET_UTF_8_OBJ);
       s_aLogger.info ("\n" + sResult);
     }
     catch (final IOException ex)
     {
       // Show error
-      final String sError = StreamUtils.getAllBytesAsString (aURLConn.getErrorStream (), CCharset.CHARSET_UTF_8_OBJ);
+      final String sError = StreamHelper.getAllBytesAsString (aURLConn.getErrorStream (), CCharset.CHARSET_UTF_8_OBJ);
       s_aLogger.info ("\n" + sError);
     }
   }
