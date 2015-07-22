@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -182,7 +182,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Trying to create new participant " +
-                      IdentifierUtils.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
+                      IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
                       " in SMP '" +
                       aSMPParticpantService.getServiceMetadataPublisherID () +
                       "'");
@@ -197,7 +197,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     {
       if (aSB.length () > 0)
         aSB.append (", ");
-      aSB.append (IdentifierUtils.getIdentifierURIEncoded (aPI));
+      aSB.append (IdentifierHelper.getIdentifierURIEncoded (aPI));
     }
     return aSB.toString ();
   }
@@ -298,7 +298,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Trying to delete participant " +
-                      IdentifierUtils.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
+                      IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
 
     createWSPort ().delete (aSMPParticpantService);
   }
@@ -440,7 +440,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Preparing to migrate participant " +
-                      IdentifierUtils.getIdentifierURIEncoded (aIdentifier) +
+                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
                       " from SMP '" +
                       sSMPID +
                       "'");
@@ -491,7 +491,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     final String sMigrationKey = aMigrationKey.toString ();
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Finishing migration of participant " +
-                      IdentifierUtils.getIdentifierURIEncoded (aIdentifier) +
+                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
                       " to SMP '" +
                       sSMPID +
                       "' using migration key '" +

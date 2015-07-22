@@ -52,7 +52,7 @@ import javax.net.ssl.TrustManager;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.utils.KeyStoreUtils;
+import com.helger.peppol.utils.KeyStoreHelper;
 import com.helger.web.https.DoNothingTrustManager;
 
 /**
@@ -73,7 +73,7 @@ public abstract class AbstractSMLClientTestCase
       return null;
 
     // Main key storage
-    final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
 
     // Key manager
     final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");

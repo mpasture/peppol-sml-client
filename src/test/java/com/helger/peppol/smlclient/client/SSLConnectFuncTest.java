@@ -60,7 +60,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
-import com.helger.peppol.utils.KeyStoreUtils;
+import com.helger.peppol.utils.KeyStoreHelper;
 import com.helger.web.https.DoNothingTrustManager;
 import com.helger.web.https.HostnameVerifierAlwaysTrue;
 
@@ -79,7 +79,7 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
   public void testConnect () throws Exception
   {
     // Load the client certificate
-    final KeyStore aKeyStore = KeyStoreUtils.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
     final KeyManagerFactory aKMF = KeyManagerFactory.getInstance ("SunX509");
     aKMF.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
 

@@ -69,7 +69,7 @@ import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
-import com.helger.peppol.utils.BusdoxURLUtils;
+import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * This class is for BRZ internal use only!
@@ -103,7 +103,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @Nullable
   private static String _DNSLookupPI (final ParticipantIdentifierType aPI) throws Exception
   {
-    final String sHost = BusdoxURLUtils.getDNSNameOfParticipant (aPI, SML_INFO);
+    final String sHost = BusdoxURLHelper.getDNSNameOfParticipant (aPI, SML_INFO);
     return _DNSLookup (sHost);
   }
 
