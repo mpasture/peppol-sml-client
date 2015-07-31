@@ -179,6 +179,20 @@
               <packageName>com.helger.peppol.smlclient.smp</packageName>
             </configuration>
           </execution>
+          <execution>
+            <id>wsimport3</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlFiles>
+                <wsdlFile>BDMSLCipaService-1.0.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/BDMSLCipaService-1.0.wsdl</wsdlLocation>
+              <staleFile>${project.build.directory}/stale/.stale-wsimport3</staleFile>
+              <packageName>com.helger.peppol.smlclient.bdmslcipa</packageName>
+            </configuration>
+          </execution>
         </executions>
         <configuration>
           <wsdlDirectory>src/main/resources/WEB-INF/wsdl</wsdlDirectory>
