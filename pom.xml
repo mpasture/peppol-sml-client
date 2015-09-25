@@ -138,7 +138,7 @@
           </instructions>
         </configuration>
       </plugin>
-       <plugin>
+      <plugin>
         <groupId>org.jvnet.jax-ws-commons</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
