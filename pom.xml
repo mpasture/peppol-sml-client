@@ -49,7 +49,7 @@
     <version>1.4.1</version>
   </parent>
   <artifactId>peppol-sml-client</artifactId>
-  <version>4.2.2-SNAPSHOT</version>
+  <version>4.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>peppol-sml-client</name>
   <url>https://github.com/phax/peppol-sml-client</url>
